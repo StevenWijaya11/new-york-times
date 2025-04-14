@@ -1,7 +1,7 @@
 {
   "extends": "@react-native/typescript-config/tsconfig.json",
   "compilerOptions": {
-    "typeRoots": ["./types"],
+    "typeRoots": ["src/app/types"],
     "baseUrl": ".",
     "paths": {
       "@test/*": ["__tests__/*"],
