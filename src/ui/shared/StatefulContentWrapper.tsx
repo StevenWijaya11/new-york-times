@@ -1,9 +1,11 @@
+import { localizedErrorMessage } from '@utils/localizationUtils';
 import React from 'react';
 import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
+import { Failure } from 'src/types/result';
 
 interface Props {
   loading: boolean;
-  error: string | null;
+  error: Failure | null;
   children: React.ReactNode;
 }
 
@@ -17,7 +19,7 @@ export const StatefulContentWrapper = ({ loading, error, children }: Props) => {
   } else if (error) {
     return (
       <View style={styles.container}>
-        <Text style={styles.errorText}>{error}</Text>
+        <Text style={styles.errorText}>{localizedErrorMessage(error)}</Text>
       </View>
     );
   } else {

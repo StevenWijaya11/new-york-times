@@ -8,9 +8,9 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const url = new URL(config.url || '', config.baseURL);
-    url.searchParams.append('api-key', API_KEY);
-    config.url = url.toString();
+    config.params = {
+      'api-key': API_KEY,
+    };
     return config;
   },
   (error) => {
