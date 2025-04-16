@@ -1,4 +1,17 @@
 {
-    "Welcome": "Selamat datang!",
-    "Learning": "Belajar React Native"
+    "Home" : {
+        "MostViewed": "Terpopular"
+    },
+
+    "Errors": {
+        "Ecconaborted": "Permintaan dibatalkan.",
+        "Unauthorized": "Anda tidak memiliki izin untuk mengakses sumber daya ini.",
+        "BadRequest": "Terdapat permintaan yang tidak valid.",
+        "Forbidden": "Anda tidak memiliki izin untuk mengakses sumber daya ini.",
+        "ServerError": "Terjadi kesalahan server yang tidak terduga.",
+        "NotFound": "Sumber daya yang diminta tidak ditemukan.",
+        "TooManyRequest": "Terlalu banyak permintaan. Harap coba lagi nanti.",
+        "ParseErrror": "Gagal mengurai respons.",
+        "Unknown": "Terjadi kesalahan yang tidak diketahui."
+    }
 }

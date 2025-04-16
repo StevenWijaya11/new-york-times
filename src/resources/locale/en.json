@@ -1,4 +1,17 @@
 {
-  "Welcome": "Welcome!",
-  "Learning": "Learning React Native"
+  "Home" : {
+    "MostViewed": "Most Viewed"
+  },
+
+  "Errors": {
+    "Ecconaborted": "The request was aborted.",
+    "Unauthorized": "You are not authorized to access this resource.",
+    "BadRequest": "There was a bad request.",
+    "Forbidden": "You do not have permission to access this resource.",
+    "ServerError": "An unexpected server error occurred.",
+    "NotFound": "The requested resource was not found.",
+    "TooManyRequest": "Too many requests. Please try again later.",
+    "ParseErrror": "Failed to parse the response.",
+    "Unknown": "An unknown error occurred."
+  }
 }
