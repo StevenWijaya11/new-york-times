@@ -1,7 +1,8 @@
 {
   "Home": {
     "MostViewed": "Most Viewed",
-    "Interests" : "Interests"
+    "Interests" : "Interests",
+    "SearchArticle": "Search article..."
   },
 
   "Stories": {

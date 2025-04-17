@@ -33,7 +33,7 @@ export const fetchSelectedStories = async (selectedStory: string): Promise<Resul
     const simplified: Article[] = results.map((item: any) => ({
       title: item.title,
       abstract: item.abstract,
-      imageUrl: item.multimedia[0]?.url,
+      imageUrl: item.multimedia?.[0]?.url,
       author: item.byline,
       publishedDate: item.published_date,
     }));

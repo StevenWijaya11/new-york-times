@@ -55,11 +55,12 @@ const HomeScreen = () => {
     <ScrollView>
       <View style={styles.container}>
         <Searchbar
-          placeholder={'Search article ...'}
+          style={styles.searchBar}
+          placeholder={t('Home.SearchArticle')}
           value={''}
         />
         <Text style={styles.sectionTitle}>{t('Home.MostViewed')}</Text>
-        <View style={styles.loadingContainer}>
+        <View style={styles.mostViewedContainer}>
           <StatefulContentWrapper
             loading={isMostViewedLoading}
             error={mostViewedError}
@@ -68,6 +69,7 @@ const HomeScreen = () => {
               style={styles.section}
               horizontal={true}
               data={mostViewedArticles}
+              showsHorizontalScrollIndicator={false}
               renderItem={renderMostViewedArticle}
               keyExtractor={(item) => item.id.toString()}
               ItemSeparatorComponent={() => <View style={styles.columnSeperator} />}
@@ -80,10 +82,12 @@ const HomeScreen = () => {
           style={styles.section}
           horizontal={true}
           data={storiesList}
+          showsHorizontalScrollIndicator={false}
           renderItem={renderStorySection}
+          keyExtractor={(index) => index.toString()}
           ItemSeparatorComponent={() => <View style={styles.storySectionSeperator} />}
         />
-        <View style={styles.loadingContainer}>
+        <View style={styles.interestContainer}>
           <StatefulContentWrapper
             loading={isInterestLoading}
             error={interestError}
@@ -105,16 +109,32 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
-    
-  },
-  loadingContainer: {
     flex: 1,
   },
+  searchBar: {
+    borderRadius: 20,
+    elevation: 3,
+    borderColor: '#D32F2F',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    backgroundColor: '#fff',
+  },
+  mostViewedContainer: {
+    flex: 1,
+    minHeight: 150,
+  },
+  interestContainer: {
+    flex: 1,
+    minHeight: 350,
+  },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '500',
-    color: '#D22B2B',
-    marginBottom: 10,
+    color: '#D32F2F',
+    marginTop: 10,
+    marginBottom: 15,
   },
   columnSeperator: {
     width: 16,
@@ -126,8 +146,7 @@ const styles = StyleSheet.create({
     height: 20,
   },
   section: {
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingBottom: 20,
   },
 });
 

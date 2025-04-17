@@ -1,4 +1,3 @@
-
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
@@ -15,7 +14,7 @@ const TopStorySection: React.FC<TopStoryProps> = ({ story, selectedStory, setSel
       style={[styles.button, selectedStory === story && styles.selectedStory]}
       onPress={() => setSelectedStory(story)}
     >
-      <Text>{t(`Stories.${story}`)}</Text>
+      <Text style={selectedStory === story && styles.selectedText}>{t(`Stories.${story}`)}</Text>
     </TouchableOpacity>
   );
 };
@@ -23,16 +22,20 @@ const TopStorySection: React.FC<TopStoryProps> = ({ story, selectedStory, setSel
 const styles = StyleSheet.create({
   button: {
     width: 100,
-    height: 30,
-    borderWidth: 2,
-    borderRadius: 5,
+    height: 35,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#D32F2F',
+    backgroundColor: '#F8F8F8',
   },
   selectedStory: {
-    backgroundColor: '#D22B2B',
-    color: 'white'
-  }
+    backgroundColor: '#D32F2F',
+  },
+  selectedText: {
+    color: 'white',
+  },
 });
 
 export default TopStorySection;

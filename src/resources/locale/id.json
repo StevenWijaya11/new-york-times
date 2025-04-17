@@ -1,13 +1,14 @@
 {
   "Home": {
     "MostViewed": "Terpopular",
-    "Interests": "Minat"
+    "Interests": "Minat",
+    "SearchArticle": "Cari article..."
   },
 
   "Stories": {
     "arts": "Seni",
     "automobiles": "Otomotif",
-    "books/review": "Buku atau Ulasan",
+    "books/review": "Buku/Ulasan",
     "business": "Bisnis",
     "fashion": "Fesyen",
     "food": "Makanan",

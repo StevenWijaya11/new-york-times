@@ -63,6 +63,8 @@ const styles = StyleSheet.create({
   },
   information: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
+    flexShrink: 1,
   },
 });
 
