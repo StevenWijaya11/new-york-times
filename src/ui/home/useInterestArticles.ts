@@ -1,12 +1,13 @@
-import { storiesList } from '@core/constant/storiesList';
+import { ServiceContainer } from '@core/data/service-container/serviceContainer';
 import { Article } from '@core/models/article';
-import { fetchSelectedStories } from '@core/services/homeService';
+
 import { useEffect, useState } from 'react';
+import { Stories } from 'src/enums/stories';
 import { Failure } from 'src/types/result';
 
-export const interesetViewModel = () => {
+export const useInterestArticles = () => {
   const [interestError, setInterestError] = useState<Failure | null>(null);
-  const [selectedStory, setSelectedStory] = useState<string>(storiesList[0]);
+  const [selectedStory, setSelectedStory] = useState<string>(Stories.Arts);
   const [selectedStoryArticles, setSelectedStoryArticles] = useState<Article[]>([]);
   const [isInterestLoading, setLoading] = useState(false);
 
@@ -14,22 +15,18 @@ export const interesetViewModel = () => {
     setLoading(true);
     setInterestError(null);
 
-    const result = await fetchSelectedStories(selectedStory);
+    const result = await ServiceContainer.homeRepo.fetchSelectedStoryArticles(selectedStory);
 
     if ('data' in result) {
       setSelectedStoryArticles(result.data);
     } else {
-      const error = {
-        error: result.error,
-        statusCode: result.statusCode,
-      } as Failure;
-      setInterestError(error);
+      setInterestError(result);
     }
     setLoading(false);
   };
 
   useEffect(() => {
-    loadSelectedStory(selectedStory)
+    loadSelectedStory(selectedStory);
   }, [selectedStory]);
 
   return { selectedStoryArticles, isInterestLoading, interestError, selectedStory, setSelectedStory };

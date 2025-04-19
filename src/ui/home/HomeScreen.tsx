@@ -9,16 +9,16 @@ import { ListRenderItem } from 'react-native';
 import ArticlePreview from '@ui/components/ArticlePreview';
 import { Searchbar } from 'react-native-paper';
 import TopStorySection from '@ui/components/TopStorySection';
-import { storiesList } from '@core/constant/storiesList';
-import { interesetViewModel } from './interestViewModel';
-import { mostViewedViewModel } from './mostViewedViewModel';
+import { useMostViewedArticles } from './useMostViewedArticles';
+import { useInterestArticles } from './useInterestArticles';
+import { Stories } from 'src/enums/stories';
 
 const HomeScreen = () => {
+  const { mostViewedArticles, isMostViewedLoading, mostViewedError } = useMostViewedArticles();
   const { selectedStoryArticles, isInterestLoading, interestError, selectedStory, setSelectedStory } =
-    interesetViewModel();
-  const { mostViewedArticles, isMostViewedLoading, mostViewedError } = mostViewedViewModel();
-
+    useInterestArticles();
   const { t } = useTranslation();
+  const storiesList: string[] = Object.values(Stories);
 
   const renderMostViewedArticle: ListRenderItem<MostViewedArticleModel> = ({ item }) => {
     return (
