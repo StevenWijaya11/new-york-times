@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ScrollView, RefreshControl } from 'react-native';
 
 import { Article, MostViewedArticleModel } from '@core/models/article';
 import MostViewedArticle from '@ui/components/MostViewedArticle';
@@ -18,9 +18,15 @@ import { Screens } from 'src/enums/screens';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 
 const HomeScreen = () => {
-  const { mostViewedArticles, isMostViewedLoading, mostViewedError } = useMostViewedArticles();
-  const { selectedStoryArticles, isInterestLoading, interestError, selectedStory, setSelectedStory } =
-    useInterestArticles();
+  const { mostViewedArticles, isMostViewedLoading, mostViewedError, loadMostViewedArticles } = useMostViewedArticles();
+  const {
+    selectedStoryArticles,
+    isInterestLoading,
+    interestError,
+    selectedStory,
+    setSelectedStory,
+    loadSelectedStory,
+  } = useInterestArticles();
   const { t } = useTranslation();
   const storiesList: string[] = Object.values(Stories);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -57,7 +63,16 @@ const HomeScreen = () => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl
+          refreshing={false}
+          onRefresh={() => {
+            loadMostViewedArticles(), loadSelectedStory(selectedStory);
+          }}
+        />
+      }
+    >
       <View style={styles.container}>
         <Searchbar
           style={styles.searchBar}
@@ -71,7 +86,7 @@ const HomeScreen = () => {
           <StatefulContentWrapper
             loading={isMostViewedLoading}
             error={mostViewedError}
-            onRefresh={() => {}}
+            onRefresh={loadMostViewedArticles}
           >
             <FlatList
               style={styles.section}
@@ -99,7 +114,7 @@ const HomeScreen = () => {
           <StatefulContentWrapper
             loading={isInterestLoading}
             error={interestError}
-            onRefresh={() => {}}
+            onRefresh={() => loadSelectedStory(selectedStory)}
           >
             <FlatList
               style={styles.section}
