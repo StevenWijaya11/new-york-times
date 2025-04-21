@@ -12,14 +12,6 @@ axiosInstance.interceptors.request.use(
       ...(config.params || {}),
       'api-key': API_KEY,
     };
-
-    const fullUrl = `${config.baseURL}${config.url}`;
-
-    // Build query string
-    const queryParams = new URLSearchParams(config.params).toString();
-    const finalUrl = queryParams ? `${fullUrl}?${queryParams}` : fullUrl;
-
-    console.log('[Axios Request]', finalUrl);
     return config;
   },
   (error) => {
