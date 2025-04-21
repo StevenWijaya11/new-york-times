@@ -1,5 +1,6 @@
 import { ServiceContainer } from '@core/data/service-container/serviceContainer';
 import { MostViewedArticleModel } from '@core/models/article';
+import { isSuccess } from '@utils/isSuccess';
 import { useEffect, useState } from 'react';
 import { Failure } from 'src/types/result';
 
@@ -13,7 +14,7 @@ export const useMostViewedArticles = () => {
     setMostViewedError(null);
 
     const result = await ServiceContainer.homeRepo.fetchMostViewedArticles();
-    if ('data' in result) {
+    if (isSuccess(result)) {
       setMostViewedArticles(result.data);
     } else {
       setMostViewedError(result);

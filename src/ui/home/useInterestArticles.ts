@@ -1,5 +1,6 @@
 import { ServiceContainer } from '@core/data/service-container/serviceContainer';
 import { Article } from '@core/models/article';
+import { isSuccess } from '@utils/isSuccess';
 
 import { useEffect, useState } from 'react';
 import { Stories } from 'src/enums/stories';
@@ -17,7 +18,7 @@ export const useInterestArticles = () => {
 
     const result = await ServiceContainer.homeRepo.fetchSelectedStoryArticles(selectedStory);
 
-    if ('data' in result) {
+    if (isSuccess(result)) {
       setSelectedStoryArticles(result.data);
     } else {
       setInterestError(result);
