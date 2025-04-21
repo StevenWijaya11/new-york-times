@@ -1,17 +1,48 @@
 {
-    "Home" : {
-        "MostViewed": "Terpopular"
-    },
+  "Home": {
+    "MostViewed": "Terpopular",
+    "Interests": "Minat",
+    "SearchArticle": "Cari article..."
+  },
 
-    "Errors": {
-        "Ecconaborted": "Permintaan dibatalkan.",
-        "Unauthorized": "Anda tidak memiliki izin untuk mengakses sumber daya ini.",
-        "BadRequest": "Terdapat permintaan yang tidak valid.",
-        "Forbidden": "Anda tidak memiliki izin untuk mengakses sumber daya ini.",
-        "ServerError": "Terjadi kesalahan server yang tidak terduga.",
-        "NotFound": "Sumber daya yang diminta tidak ditemukan.",
-        "TooManyRequest": "Terlalu banyak permintaan. Harap coba lagi nanti.",
-        "ParseErrror": "Gagal mengurai respons.",
-        "Unknown": "Terjadi kesalahan yang tidak diketahui."
-    }
+  "Stories": {
+    "arts": "Seni",
+    "automobiles": "Otomotif",
+    "books/review": "Buku/Ulasan",
+    "business": "Bisnis",
+    "fashion": "Fesyen",
+    "food": "Makanan",
+    "health": "Kesehatan",
+    "home": "Rumah",
+    "insider": "Insider",
+    "magazine": "Majalah",
+    "movies": "Film",
+    "nyregion": "Wilayah NY",
+    "obituaries": "Obituari",
+    "opinion": "Opini",
+    "politics": "Politik",
+    "realestate": "Properti",
+    "science": "Sains",
+    "sports": "Olahraga",
+    "sundayreview": "Ulasan Minggu",
+    "technology": "Teknologi",
+    "theater": "Teater",
+    "t-magazine": "Majalah T",
+    "travel": "Perjalanan",
+    "upshot": "Hasil",
+    "us": "AS",
+    "world": "Dunia"
+  },
+
+  "Errors": {
+    "Ecconaborted": "Permintaan dibatalkan.",
+    "Unauthorized": "Anda tidak memiliki izin untuk mengakses sumber daya ini.",
+    "BadRequest": "Terdapat permintaan yang tidak valid.",
+    "Forbidden": "Anda tidak memiliki izin untuk mengakses sumber daya ini.",
+    "ServerError": "Terjadi kesalahan server yang tidak terduga.",
+    "NotFound": "Sumber daya yang diminta tidak ditemukan.",
+    "TooManyRequest": "Terlalu banyak permintaan. Harap coba lagi nanti.",
+    "ParseErrror": "Gagal mengurai respons.",
+    "Unknown": "Terjadi kesalahan yang tidak diketahui."
+  }
 }

@@ -1,6 +1,37 @@
 {
-  "Home" : {
-    "MostViewed": "Most Viewed"
+  "Home": {
+    "MostViewed": "Most Viewed",
+    "Interests" : "Interests",
+    "SearchArticle": "Search article..."
+  },
+
+  "Stories": {
+    "arts": "Arts",
+    "automobiles": "Automobiles",
+    "books/review": "Book/Review",
+    "business": "Business",
+    "fashion": "Fashion",
+    "food": "Food",
+    "health": "Health",
+    "home": "Home",
+    "insider": "Insider",
+    "magazine": "Magazine",
+    "movies": "Movies",
+    "nyregion": "NY Region",
+    "obituaries": "Obituaries",
+    "opinion": "Opinion",
+    "politics": "Politics",
+    "realestate": "Real Estate",
+    "science": "Science",
+    "sports": "Sports",
+    "sundayreview": "Sunday Review",
+    "technology": "Technology",
+    "theater": "Theater",
+    "t-magazine": "T Magazine",
+    "travel": "Travel",
+    "upshot": "Upshot",
+    "us": "US",
+    "world": "World"
   },
 
   "Errors": {

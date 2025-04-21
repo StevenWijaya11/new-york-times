@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 
-export type Sucess<T> = { data: T };
+export type Success<T> = { data: T };
 export type Failure = { error: AxiosError; statusCode?: number };
 
-export type Result<T> = Sucess<T> | Failure;
+export type Result<T> = Success<T> | Failure;
