@@ -1,15 +1,17 @@
 import { localizedErrorMessage } from '@utils/localizationUtils';
+import { t } from 'i18next';
 import React from 'react';
-import { View, ActivityIndicator, Text, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, Text, StyleSheet, Touchable, TouchableOpacity } from 'react-native';
 import { Failure } from 'src/types/result';
 
 interface Props {
   loading: boolean;
   error: Failure | null;
+  onRefresh: () => void;
   children: React.ReactNode;
 }
 
-export const StatefulContentWrapper = ({ loading, error, children }: Props) => {
+export const StatefulContentWrapper = ({ loading, error, onRefresh, children }: Props) => {
   if (loading) {
     return (
       <View style={styles.container}>
@@ -19,7 +21,14 @@ export const StatefulContentWrapper = ({ loading, error, children }: Props) => {
   } else if (error) {
     return (
       <View style={styles.container}>
-        <Text style={styles.errorText}>{localizedErrorMessage(error)}</Text>
+        <Text style={styles.errorTitle}>{t('Errors.SomethingWentWrong')}</Text>
+        <Text style={styles.errorDescription}>{localizedErrorMessage(error)}</Text> 
+        <TouchableOpacity
+          style={styles.button}
+          onPress={onRefresh}
+        >
+          <Text> {'Retry'}</Text>
+        </TouchableOpacity>
       </View>
     );
   } else {
@@ -32,11 +41,23 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 16,
+    flexDirection: 'column',
+    gap: 10,
   },
-  errorText: {
+  errorTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  errorDescription: {
     fontSize: 16,
-    marginBottom: 10,
     textAlign: 'center',
+  },
+  button: {
+    paddingHorizontal: 30,
+    height: 35,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
   },
 });

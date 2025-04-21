@@ -12,6 +12,10 @@ import TopStorySection from '@ui/components/TopStorySection';
 import { useMostViewedArticles } from './useMostViewedArticles';
 import { useInterestArticles } from './useInterestArticles';
 import { Stories } from 'src/enums/stories';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Screens } from 'src/enums/screens';
+import { RootStackParamList } from 'src/types/rootStackParamList';
 
 const HomeScreen = () => {
   const { mostViewedArticles, isMostViewedLoading, mostViewedError } = useMostViewedArticles();
@@ -19,6 +23,7 @@ const HomeScreen = () => {
     useInterestArticles();
   const { t } = useTranslation();
   const storiesList: string[] = Object.values(Stories);
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const renderMostViewedArticle: ListRenderItem<MostViewedArticleModel> = ({ item }) => {
     return (
@@ -58,12 +63,15 @@ const HomeScreen = () => {
           style={styles.searchBar}
           placeholder={t('Home.SearchArticle')}
           value={''}
+          editable={false}
+          onPress={() => navigation.navigate(Screens.SearchArticle)}
         />
         <Text style={styles.sectionTitle}>{t('Home.MostViewed')}</Text>
         <View style={styles.mostViewedContainer}>
           <StatefulContentWrapper
             loading={isMostViewedLoading}
             error={mostViewedError}
+            onRefresh={() => {}}
           >
             <FlatList
               style={styles.section}
@@ -91,6 +99,7 @@ const HomeScreen = () => {
           <StatefulContentWrapper
             loading={isInterestLoading}
             error={interestError}
+            onRefresh={() => {}}
           >
             <FlatList
               style={styles.section}
