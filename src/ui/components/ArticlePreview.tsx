@@ -30,7 +30,7 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({ title, abstract, author
           {abstract}
         </Text>
         <View style={styles.information}>
-          <Text style={styles.date}>{formatDisplayDate(publishedDate)}</Text>
+          <Text style={styles.date}>{publishedDate}</Text>
           <Text>{author}</Text>
         </View>
       </View>

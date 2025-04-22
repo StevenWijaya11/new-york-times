@@ -1,7 +1,8 @@
 export type RootStackParamList = {
   Home: undefined;
   SearchArticle: undefined;
-  ArticleDetails: { message: string };
+  ArticleDetails: { article: Article };
 };
 
-export type Props = NativeStackScreenProps<RootStackParamList, 'ArticleDetails'>;
+export type Props = NativeStackScreenProps<RootStackParamList, Screens.ArticleDetails>;
+

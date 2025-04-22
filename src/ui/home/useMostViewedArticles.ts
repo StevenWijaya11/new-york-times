@@ -1,11 +1,11 @@
 import { ServiceContainer } from '@core/data/service-container/serviceContainer';
-import { MostViewedArticleModel } from '@core/models/article';
+import { Article } from '@core/models/article';
 import { isSuccess } from '@utils/isSuccess';
 import { useEffect, useState } from 'react';
 import { Failure } from 'src/types/result';
 
 export const useMostViewedArticles = () => {
-  const [mostViewedArticles, setMostViewedArticles] = useState<MostViewedArticleModel[]>([]);
+  const [mostViewedArticles, setMostViewedArticles] = useState<Article[]>([]);
   const [isMostViewedLoading, setLoading] = useState(false);
   const [mostViewedError, setMostViewedError] = useState<Failure | null>(null);
 
