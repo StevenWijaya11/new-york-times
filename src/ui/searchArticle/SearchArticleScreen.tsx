@@ -1,7 +1,7 @@
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { View, StyleSheet, FlatList, ListRenderItem, RefreshControl } from 'react-native';
+import { View, StyleSheet, FlatList, ListRenderItem, RefreshControl, TouchableOpacity } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 
 import { Article } from '@core/models/article';
@@ -9,9 +9,14 @@ import ArticlePreview from '@ui/components/ArticlePreview';
 import PaginationFooter from '@ui/components/PaginationFooter';
 import { useSearchArticle } from './useSearchArticle';
 import EmptyPlaceHolder from '@ui/components/EmptyPlaceholder';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from 'src/types/rootStackParamList';
+import { Screens } from 'src/enums/screens';
 
 const SearchArticleScreen = () => {
   const { t } = useTranslation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const {
     articles,
     isInitialLoad,
@@ -26,13 +31,9 @@ const SearchArticleScreen = () => {
 
   const renderSearchArticles: ListRenderItem<Article> = ({ item }) => {
     return (
-      <ArticlePreview
-        title={item.title}
-        abstract={item.abstract}
-        author={item.author}
-        publishedDate={item.publishedDate}
-        imageUrl={item.imageUrl}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate(Screens.ArticleDetails, { article: item })}>
+        <ArticlePreview item={item} />
+      </TouchableOpacity>
     );
   };
 

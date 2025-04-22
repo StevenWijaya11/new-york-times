@@ -55,13 +55,7 @@ const HomeScreen = () => {
   const renderSelectedStoriesArticle: ListRenderItem<Article> = ({ item }) => {
     return (
       <TouchableOpacity onPress={() => navigation.navigate(Screens.ArticleDetails, { article: item })}>
-        <ArticlePreview
-          title={item.title}
-          abstract={item.abstract}
-          author={item.author}
-          publishedDate={item.publishedDate}
-          imageUrl={item.imageUrl}
-        />
+        <ArticlePreview item={item} />
       </TouchableOpacity>
     );
   };
@@ -78,13 +72,15 @@ const HomeScreen = () => {
       }
     >
       <View style={styles.container}>
-        <Searchbar
-          style={styles.searchBar}
-          placeholder={t('Home.SearchArticle')}
-          value={''}
-          editable={false}
-          onPress={() => navigation.navigate(Screens.SearchArticle)}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate(Screens.SearchArticle)}>
+          <Searchbar
+            style={styles.searchBar}
+            placeholder={t('Home.SearchArticle')}
+            value={''}
+            editable={false}
+            pointerEvents="none"
+          />
+        </TouchableOpacity>
         <Text style={styles.sectionTitle}>{t('Home.MostViewed')}</Text>
         <View style={styles.mostViewedContainer}>
           <StatefulContentWrapper

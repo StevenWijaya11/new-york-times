@@ -4,21 +4,21 @@ import { Props } from 'src/types/rootStackParamList';
 
 const ArticleDetailsScreen = ({ route }: Props) => {
   const { article } = route.params;
+  const { title, imageUrl, caption, credit, publishedDate, author } = article;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{article.title} </Text>
-
+      <Text style={styles.title}>{title} </Text>
       <Image
-        style={styles.images}
-        source={{ uri: article.imageUrl }}
-      ></Image>
+        style={styles.image}
+        source={imageUrl ? { uri: imageUrl } : require('src/resources/images/no-image.png')}
+      />
       <Text style={styles.caption}>
-        {article.caption} <Text style={styles.credit}>{article.credit}</Text>
+        {caption} <Text style={styles.credit}>{credit}</Text>
       </Text>
       <View style={styles.authorInformation}>
-        <Text>{article.publishedDate}</Text>
-        <Text>{article.author}</Text>
+        <Text style={styles.date}>{publishedDate}</Text>
+        <Text style={styles.author}>{author}</Text>
       </View>
       <Text style={styles.abstract}>{article.abstract} </Text>
     </View>
@@ -29,15 +29,13 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
-    alignItems: 'center',
   },
-  topSection: {},
   title: {
     fontSize: 23,
     fontWeight: 'bold',
     marginBottom: 10,
   },
-  images: {
+  image: {
     width: '100%',
     height: '25%',
     resizeMode: 'stretch',
@@ -45,27 +43,30 @@ const styles = StyleSheet.create({
   },
   caption: {
     textAlign: 'justify',
-    alignSelf: 'flex-start',
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '400',
     color: 'grey',
     marginBottom: 15,
   },
   credit: {
     fontWeight: 'bold',
-    fontStyle: 'italic'
+    fontStyle: 'italic',
   },
   authorInformation: {
     flexDirection: 'row',
     textAlign: 'left',
-    alignSelf: 'flex-start',
     marginBottom: 15,
     gap: 5,
+  },
+  date: {
+    fontWeight: 'bold',
+  },
+  author: {
+    fontWeight: 'bold',
   },
   abstract: {
     textAlign: 'justify',
     fontSize: 15,
-    fontWeight: '500',
   },
 });
 
