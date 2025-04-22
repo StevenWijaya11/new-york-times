@@ -27,5 +27,5 @@ export const useMostViewedArticles = () => {
     loadMostViewedArticles();
   }, []);
 
-  return { mostViewedArticles, isMostViewedLoading, mostViewedError };
+  return { mostViewedArticles, isMostViewedLoading, mostViewedError, loadMostViewedArticles };
 };
