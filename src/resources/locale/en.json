@@ -43,6 +43,12 @@
     "NotFound": "The requested resource was not found.",
     "TooManyRequest": "Too many requests. Please try again later.",
     "ParseErrror": "Failed to parse the response.",
-    "Unknown": "An unknown error occurred."
+    "Unknown": "An unknown error occurred.",
+    "SomethingWentWrong": "Something went wrong"
+  },
+
+  "EmptyPlaceholder": {
+    "Title": "No Result Found", 
+    "Description": "We cant find any item macthing with your search"
   }
 }

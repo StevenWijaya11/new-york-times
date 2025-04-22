@@ -43,6 +43,12 @@
     "NotFound": "Sumber daya yang diminta tidak ditemukan.",
     "TooManyRequest": "Terlalu banyak permintaan. Harap coba lagi nanti.",
     "ParseErrror": "Gagal mengurai respons.",
-    "Unknown": "Terjadi kesalahan yang tidak diketahui."
+    "Unknown": "Terjadi kesalahan yang tidak diketahui.",
+    "SomethingWentWrong": "Terjadi suatu kesalahan"
+  },
+
+  "EmptyPlaceholder": {
+    "Title": "Tidak Ditemukan Hasil",
+    "Description": "Kami tidak dapat menemukan item yang cocok dengan pencarian Anda"
   }
 }
