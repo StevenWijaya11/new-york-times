@@ -1,4 +1,5 @@
 import { Article } from '@core/models/article';
+import { formatDisplayDate } from '@utils/dateFormatter';
 
 export const mapSearchArticle = (item: any): Article => {
   return {
@@ -9,7 +10,7 @@ export const mapSearchArticle = (item: any): Article => {
     imageUrl: item.multimedia?.thumbnail?.url,
     caption: item.multimedia?.caption ?? '',
     credit: item.multimedia?.credit ?? '',
-    publishedDate: item.pub_date,
+    publishedDate: formatDisplayDate(item.pub_date),
   };
 };
 

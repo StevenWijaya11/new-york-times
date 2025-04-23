@@ -1,15 +1,13 @@
-import { formatDisplayDate } from '@utils/dateFormatter';
+import { Article } from '@core/models/article';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
 interface ArticlePreviewProps {
-  title: string;
-  abstract: string;
-  author: string;
-  publishedDate: string;
-  imageUrl?: string;
+  item: Article;
 }
 
-const ArticlePreview: React.FC<ArticlePreviewProps> = ({ title, abstract, author, publishedDate, imageUrl }) => {
+const ArticlePreview: React.FC<ArticlePreviewProps> = ({ item }) => {
+  const { title, abstract, author, publishedDate, imageUrl } = item;
+
   return (
     <View style={styles.container}>
       <Image
@@ -30,7 +28,7 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({ title, abstract, author
           {abstract}
         </Text>
         <View style={styles.information}>
-          <Text style={styles.date}>{formatDisplayDate(publishedDate)}</Text>
+          <Text style={styles.date}>{publishedDate}</Text>
           <Text>{author}</Text>
         </View>
       </View>
@@ -59,7 +57,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   date: {
-    marginRight: 5
+    marginRight: 5,
   },
   information: {
     flexDirection: 'row',

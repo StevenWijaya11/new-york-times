@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, ScrollView, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, FlatList, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 
-import { Article, MostViewedArticleModel } from '@core/models/article';
+import { Article } from '@core/models/article';
 import MostViewedArticle from '@ui/components/MostViewedArticle';
 import { useTranslation } from 'react-i18next';
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
@@ -31,12 +31,14 @@ const HomeScreen = () => {
   const storiesList: string[] = Object.values(Stories);
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const renderMostViewedArticle: ListRenderItem<MostViewedArticleModel> = ({ item }) => {
+  const renderMostViewedArticle: ListRenderItem<Article> = ({ item }) => {
     return (
-      <MostViewedArticle
-        title={item.title}
-        imageUrl={item.imageUrl}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate(Screens.ArticleDetails, { article: item })}>
+        <MostViewedArticle
+          title={item.title}
+          imageUrl={item.imageUrl}
+        />
+      </TouchableOpacity>
     );
   };
 
@@ -52,13 +54,9 @@ const HomeScreen = () => {
 
   const renderSelectedStoriesArticle: ListRenderItem<Article> = ({ item }) => {
     return (
-      <ArticlePreview
-        title={item.title}
-        abstract={item.abstract}
-        author={item.author}
-        publishedDate={item.publishedDate}
-        imageUrl={item.imageUrl}
-      />
+      <TouchableOpacity onPress={() => navigation.navigate(Screens.ArticleDetails, { article: item })}>
+        <ArticlePreview item={item} />
+      </TouchableOpacity>
     );
   };
 
@@ -74,13 +72,15 @@ const HomeScreen = () => {
       }
     >
       <View style={styles.container}>
-        <Searchbar
-          style={styles.searchBar}
-          placeholder={t('Home.SearchArticle')}
-          value={''}
-          editable={false}
-          onPress={() => navigation.navigate(Screens.SearchArticle)}
-        />
+        <TouchableOpacity onPress={() => navigation.navigate(Screens.SearchArticle)}>
+          <Searchbar
+            style={styles.searchBar}
+            placeholder={t('Home.SearchArticle')}
+            value={''}
+            editable={false}
+            pointerEvents="none"
+          />
+        </TouchableOpacity>
         <Text style={styles.sectionTitle}>{t('Home.MostViewed')}</Text>
         <View style={styles.mostViewedContainer}>
           <StatefulContentWrapper

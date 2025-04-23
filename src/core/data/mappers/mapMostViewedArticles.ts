@@ -1,4 +1,5 @@
 import { Article } from '@core/models/article';
+import { formatDisplayDate } from '@utils/dateFormatter';
 
 export const mapMostViewedArticle = (item: any): Article => {
   return {
@@ -9,7 +10,7 @@ export const mapMostViewedArticle = (item: any): Article => {
     imageUrl: item.media?.[0]?.['media-metadata']?.[0]?.url,
     caption: item.media?.[0]?.caption ?? '',
     credit: item.media?.[0]?.copyright ?? '',
-    publishedDate: item.published_date,
+    publishedDate: formatDisplayDate(item.published_date),
   };
 };
 
