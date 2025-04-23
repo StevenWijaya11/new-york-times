@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { Stories } from 'src/enums/stories';
 import { Failure } from 'src/types/result';
 
-export const useInterestArticles = () => {
+export const useInterestArticles = (reloadKey: number) => {
   const [interestError, setInterestError] = useState<Failure | null>(null);
   const [selectedStory, setSelectedStory] = useState<string>(Stories.Arts);
   const [selectedStoryArticles, setSelectedStoryArticles] = useState<Article[]>([]);
@@ -28,7 +28,7 @@ export const useInterestArticles = () => {
 
   useEffect(() => {
     loadSelectedStory(selectedStory);
-  }, [selectedStory]);
+  }, [selectedStory, reloadKey]);
 
   return { selectedStoryArticles, isInterestLoading, interestError, selectedStory, setSelectedStory, loadSelectedStory};
 };

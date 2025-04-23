@@ -4,7 +4,7 @@ import { isSuccess } from '@utils/isSuccess';
 import { useEffect, useState } from 'react';
 import { Failure } from 'src/types/result';
 
-export const useMostViewedArticles = () => {
+export const useMostViewedArticles = (reloadKey: number) => {
   const [mostViewedArticles, setMostViewedArticles] = useState<Article[]>([]);
   const [isMostViewedLoading, setLoading] = useState(false);
   const [mostViewedError, setMostViewedError] = useState<Failure | null>(null);
@@ -25,7 +25,7 @@ export const useMostViewedArticles = () => {
 
   useEffect(() => {
     loadMostViewedArticles();
-  }, []);
+  }, [reloadKey]);
 
   return { mostViewedArticles, isMostViewedLoading, mostViewedError, loadMostViewedArticles };
 };

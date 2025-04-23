@@ -28,13 +28,14 @@ const styles = StyleSheet.create({
     width: 300,
     borderWidth: 1,
     borderRadius: 20,
+    height: 175
   },
   image: {
     height: 125,
-    width: 298,
+    width: '100%',
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
-    resizeMode: 'stretch',
+    resizeMode: 'cover',
   },
   text: {
     padding: 10,

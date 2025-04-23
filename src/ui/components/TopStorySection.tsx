@@ -21,7 +21,7 @@ const TopStorySection: React.FC<TopStoryProps> = ({ story, selectedStory, setSel
 
 const styles = StyleSheet.create({
   button: {
-    width: 100,
+    paddingHorizontal: 10,
     height: 35,
     borderRadius: 10,
     justifyContent: 'center',

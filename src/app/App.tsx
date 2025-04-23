@@ -6,7 +6,7 @@ import RootNavigator from './RootNavigator';
 const App = () => {
   return (
     <I18nextProvider i18n={i18next}>
-      <RootNavigator />;
+      <RootNavigator />
     </I18nextProvider>
   );
 };

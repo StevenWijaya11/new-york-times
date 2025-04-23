@@ -1,6 +1,6 @@
 import { ServiceContainer } from '@core/data/service-container/serviceContainer';
 import { Article } from '@core/models/article';
-import { useDebounce } from '@ui/hooks/useDebounce';
+import { useDebounce } from '@ui/hooks/sharedHooks/useDebounce';
 import { isSuccess } from '@utils/isSuccess';
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { Failure } from 'src/types/result';

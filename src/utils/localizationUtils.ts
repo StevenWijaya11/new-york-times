@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 import { getLocales } from 'react-native-localize';
 import { Languages } from 'src/enums/languages';
 import { Failure } from 'src/types/result';
@@ -10,8 +10,6 @@ export const getCurrentUserLanguage = () => {
 };
 
 export const localizedErrorMessage = (err: Failure): string => {
-  const { t } = useTranslation();
-
   if (err.error.code === AxiosError.ERR_NETWORK || err.error.code === AxiosError.ECONNABORTED) {
     return t('Errors.Ecconaborted');
   } else if (err.statusCode) {
