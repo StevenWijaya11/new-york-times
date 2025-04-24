@@ -21,7 +21,7 @@ export const StatefulContentWrapper = ({ loading, error, onRefresh, children }: 
     return (
       <View style={styles.container}>
         <Text style={styles.errorTitle}>{t('Errors.SomethingWentWrong')}</Text>
-        <Text style={styles.errorDescription}>{localizedErrorMessage(error)}</Text> 
+        <Text style={styles.errorDescription}>{localizedErrorMessage(error)}</Text>
         <TouchableOpacity
           style={styles.button}
           onPress={onRefresh}
@@ -31,7 +31,7 @@ export const StatefulContentWrapper = ({ loading, error, onRefresh, children }: 
       </View>
     );
   } else {
-    return <View>{children}</View>;
+    return <>{children}</>
   }
 };
 

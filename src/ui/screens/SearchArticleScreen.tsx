@@ -1,6 +1,5 @@
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { View, StyleSheet, FlatList, ListRenderItem, RefreshControl, TouchableOpacity } from 'react-native';
 
 import { Article } from '@core/models/article';
@@ -16,7 +15,6 @@ import { useNetworkStatus } from '@ui/hooks/sharedHooks/useNetworkStatus';
 import SearchBar from '@ui/components/SearchBar';
 
 const SearchArticleScreen = () => {
-  const { t } = useTranslation();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const isConnected = useNetworkStatus();
   const {
