@@ -30,5 +30,12 @@ export const useInterestArticles = () => {
     loadSelectedStory(selectedStory);
   }, [selectedStory]);
 
-  return { selectedStoryArticles, isInterestLoading, interestError, selectedStory, setSelectedStory, loadSelectedStory};
+  return {
+    selectedStoryArticles,
+    isInterestLoading,
+    interestError,
+    selectedStory,
+    setSelectedStory,
+    loadSelectedStory,
+  };
 };

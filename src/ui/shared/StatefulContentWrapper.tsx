@@ -1,17 +1,16 @@
 import { localizedErrorMessage } from '@utils/localizationUtils';
 import { t } from 'i18next';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { View, ActivityIndicator, Text, StyleSheet, Touchable, TouchableOpacity } from 'react-native';
 import { Failure } from 'src/types/result';
 
-interface Props {
+type prop = PropsWithChildren<{
   loading: boolean;
   error: Failure | null;
   onRefresh: () => void;
-  children: React.ReactNode;
-}
+}>;
 
-export const StatefulContentWrapper = ({ loading, error, onRefresh, children }: Props) => {
+export const StatefulContentWrapper = ({ loading, error, onRefresh, children }: prop): React.JSX.Element => {
   if (loading) {
     return (
       <View style={styles.container}>
@@ -27,12 +26,12 @@ export const StatefulContentWrapper = ({ loading, error, onRefresh, children }: 
           style={styles.button}
           onPress={onRefresh}
         >
-          <Text> {'Retry'}</Text>
+          <Text> Retry</Text>
         </TouchableOpacity>
       </View>
     );
   } else {
-    return <>{children}</>;
+    return <View>{children}</View>;
   }
 };
 

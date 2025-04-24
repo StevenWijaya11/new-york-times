@@ -2,21 +2,23 @@ import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { View, StyleSheet, FlatList, ListRenderItem, RefreshControl, TouchableOpacity } from 'react-native';
-import { Searchbar } from 'react-native-paper';
 
 import { Article } from '@core/models/article';
 import ArticlePreview from '@ui/components/ArticlePreview';
 import PaginationFooter from '@ui/components/PaginationFooter';
-import { useSearchArticle } from './useSearchArticle';
+import { useSearchArticle } from '../hooks/customHooks/useSearchArticle';
 import EmptyPlaceHolder from '@ui/components/EmptyPlaceholder';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 import { Screens } from 'src/enums/screens';
+import { useNetworkStatus } from '@ui/hooks/sharedHooks/useNetworkStatus';
+import SearchBar from '@ui/components/SearchBar';
 
 const SearchArticleScreen = () => {
   const { t } = useTranslation();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const isConnected = useNetworkStatus();
   const {
     articles,
     isInitialLoad,
@@ -49,11 +51,9 @@ const SearchArticleScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Searchbar
-        style={styles.searchBar}
-        placeholder={t('Home.SearchArticle')}
-        onChangeText={setSearchQuery}
+      <SearchBar
         value={searchQuery}
+        onChangeText={setSearchQuery}
       />
       <StatefulContentWrapper
         loading={isInitialLoad}
@@ -86,17 +86,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-  },
-  searchBar: {
-    borderRadius: 20,
-    elevation: 3,
-    borderColor: '#D32F2F',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    backgroundColor: '#fff',
-    marginBottom: 25,
   },
   searchArticleSpacing: {
     height: 20,

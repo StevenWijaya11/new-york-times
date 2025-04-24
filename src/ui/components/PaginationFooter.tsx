@@ -23,7 +23,7 @@ const PaginationFooter: React.FC<PaginationFooterProps> = ({ isLoading, error, o
           style={styles.button}
           onPress={onRefresh}
         >
-          <Text> {'Retry'}</Text>
+          <Text>Retry</Text>
         </TouchableOpacity>
       </View>
     );

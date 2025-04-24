@@ -1,9 +1,9 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import ArticleDetailsScreen from '@ui/articleDetails/ArticleDetailsScreen';
-import HomeScreen from '@ui/home/HomeScreen';
-import SearchArticleScreen from '@ui/searchArticle/SearchArticleScreen';
+import ArticleDetailsScreen from '@ui/screens/ArticleDetailsScreen';
+import HomeScreen from '@ui/screens/HomeScreen';
+import SearchArticleScreen from '@ui/screens/SearchArticleScreen';
 import { Screens } from 'src/enums/screens';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 
