@@ -9,8 +9,8 @@ import { View, TouchableOpacity, Text, FlatList, StyleSheet, ListRenderItem } fr
 import { Screens } from 'src/enums/screens';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 
-const MostViewedSection = ({ reloadKey }: { reloadKey: number }) => {
-  const { mostViewedArticles, isMostViewedLoading, mostViewedError, loadMostViewedArticles } = useMostViewedArticles(reloadKey);
+const MostViewedSection = () => {
+  const { mostViewedArticles, isMostViewedLoading, mostViewedError, loadMostViewedArticles } = useMostViewedArticles();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const renderMostViewedArticle: ListRenderItem<Article> = ({ item }) => {

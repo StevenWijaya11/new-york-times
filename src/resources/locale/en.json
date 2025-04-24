@@ -35,7 +35,7 @@
   },
 
   "Errors": {
-    "Ecconaborted": "The request was aborted.",
+    "Ecconaborted": "The network is unstable.",
     "Unauthorized": "You are not authorized to access this resource.",
     "BadRequest": "There was a bad request.",
     "Forbidden": "You do not have permission to access this resource.",
@@ -50,5 +50,12 @@
   "EmptyPlaceholder": {
     "Title": "No Result Found", 
     "Description": "We cant find any item macthing with your search"
+  },
+
+  "Shared" : {
+    "Retry": "Retry",
+    "NoInternet": "You are offline", 
+    "Online": "You are back online"
   }
+  
 }

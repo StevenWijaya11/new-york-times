@@ -31,7 +31,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     backgroundColor: '#fff',
+    marginBottom: 20
   },
 });
 
 export default SearchBar;
+

@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 import { Screens } from 'src/enums/screens';
-import { useNetworkStatus } from '@ui/hooks/sharedHooks/useNetInfo';
+import { useNetworkStatus } from '@ui/hooks/sharedHooks/useNetworkStatus';
 import SearchBar from '@ui/components/SearchBar';
 
 const SearchArticleScreen = () => {
@@ -54,7 +54,7 @@ const SearchArticleScreen = () => {
       <SearchBar
         value={searchQuery}
         onChangeText={setSearchQuery}
-      ></SearchBar>
+      />
       <StatefulContentWrapper
         loading={isInitialLoad}
         error={initialLoadError}

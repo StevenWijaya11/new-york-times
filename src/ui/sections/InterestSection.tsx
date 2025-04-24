@@ -12,7 +12,7 @@ import { Screens } from 'src/enums/screens';
 import { Stories } from 'src/enums/stories';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 
-const InterestSection = ({ reloadKey }: { reloadKey: number }) => {
+const InterestSection = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const {
     selectedStoryArticles,
@@ -21,7 +21,7 @@ const InterestSection = ({ reloadKey }: { reloadKey: number }) => {
     selectedStory,
     setSelectedStory,
     loadSelectedStory,
-  } = useInterestArticles(reloadKey);
+  } = useInterestArticles();
   const storiesList: string[] = Object.values(Stories);
 
   const renderStorySection: ListRenderItem<string> = ({ item }) => {

@@ -1,41 +1,55 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import { View, StyleSheet, ScrollView, RefreshControl, TouchableOpacity } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Screens } from 'src/enums/screens';
 import { RootStackParamList } from 'src/types/rootStackParamList';
-import { useNetworkStatus } from '@ui/hooks/sharedHooks/useNetInfo';
 import MostViewedSection from '@ui/sections/MostViewedSection';
 import InterestSection from '@ui/sections/InterestSection';
 import SearchBar from '@ui/components/SearchBar';
-import { useHomeScreen } from '@ui/hooks/customHooks/useHomeScreen';
+import SharedSnackbar from '@ui/shared/Snackbar';
+import { useMostViewedArticles } from '@ui/hooks/customHooks/useMostViewedArticles';
+import { useInterestArticles } from '@ui/hooks/customHooks/useInterestArticles';
 
 const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const { reloadKey, isRefreshing, onRefresh } = useHomeScreen();
-  const isConnected = useNetworkStatus();
+
+  const { loadMostViewedArticles } = useMostViewedArticles();
+  const {
+    selectedStoryArticles,
+    isInterestLoading,
+    interestError,
+    selectedStory,
+    setSelectedStory,
+    loadSelectedStory,
+  } = useInterestArticles();
 
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl
-          refreshing={isRefreshing}
-          onRefresh={onRefresh}
-        />
-      }
-    >
-      <View style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate(Screens.SearchArticle)}>
-          <SearchBar
-            value={''}
-            isEditable={false}
+    <View style={styles.container}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={() => {
+              loadMostViewedArticles(), loadSelectedStory(selectedStory);
+            }}
           />
-        </TouchableOpacity>
-        <MostViewedSection reloadKey={reloadKey} />
-        <InterestSection reloadKey={reloadKey}/>
-      </View>
-    </ScrollView>
+        }
+      >
+        <View>
+          <TouchableOpacity onPress={() => navigation.navigate(Screens.SearchArticle)}>
+            <SearchBar
+              value={''}
+              isEditable={false}
+            />
+          </TouchableOpacity>
+          <MostViewedSection />
+          <InterestSection />
+        </View>
+      </ScrollView>
+      <SharedSnackbar />
+    </View>
   );
 };
 
