@@ -1,34 +1,56 @@
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem, RefreshControl, TouchableOpacity } from 'react-native';
-
 import { Article } from '@core/models/article';
 import ArticlePreview from '@ui/components/ArticlePreview';
 import PaginationFooter from '@ui/components/PaginationFooter';
-import { useSearchArticle } from '../hooks/customHooks/useSearchArticle';
 import EmptyPlaceHolder from '@ui/components/EmptyPlaceholder';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 import { Screens } from 'src/enums/screens';
-import { useNetworkStatus } from '@ui/hooks/sharedHooks/useNetworkStatus';
 import SearchBar from '@ui/components/SearchBar';
-import SharedSnackbar from '@ui/shared/Snackbar';
+import { AppDispatch, RootState } from '@app/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { refreshPage, resetPage, setSearchQuery } from 'src/features/slices/searchSlice';
+import { fetchSearchArticle } from 'src/features/thunks/searchTrunk';
+import { INITIAL_PAGE } from '@core/constant/constants';
+import { useDebounce } from '@ui/hooks/sharedHooks/useDebounce';
 
 const SearchArticleScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const isConnected = useNetworkStatus();
-  const {
-    articles,
-    isInitialLoad,
-    isLoadingMore,
-    initialLoadError,
-    loadMoreError,
-    loadInitialSearchArticles,
-    loadNextSearchArticles,
-    searchQuery,
-    setSearchQuery,
-  } = useSearchArticle();
+  const { articles, page, searchQuery, isInitialLoading, isLoadingMore, initialLoadError, loadMoreError, hasData } = useSelector(
+    (state: RootState) => state.search,
+  );
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchSearchArticle({ page: page, searchQuery: debouncedSearchQuery }));
+  }, [dispatch, debouncedSearchQuery]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetPage());
+    };
+  }, [dispatch]);
+
+  const handleLoadNextPage = useCallback(() => {
+    if (isInitialLoading || isLoadingMore || !hasData) return;
+    dispatch(fetchSearchArticle({ page, searchQuery }));
+  }, [dispatch, isInitialLoading, isLoadingMore, page, searchQuery]);
+
+  const handleRefreshPage = useCallback(() => {
+    dispatch(refreshPage());
+    dispatch(fetchSearchArticle({ page: INITIAL_PAGE, searchQuery }));
+  }, [dispatch, searchQuery]);
+
+  const handleSearchQuery = useCallback(
+    (query: string) => {
+      dispatch(setSearchQuery(query));
+    },
+    [dispatch],
+  );
 
   const renderSearchArticles: ListRenderItem<Article> = ({ item }) => {
     return (
@@ -43,7 +65,7 @@ const SearchArticleScreen = () => {
       <PaginationFooter
         isLoading={isLoadingMore}
         error={loadMoreError}
-        onRefresh={loadNextSearchArticles}
+        onRefresh={handleLoadNextPage}
       />
     );
   };
@@ -52,33 +74,32 @@ const SearchArticleScreen = () => {
     <View style={styles.container}>
       <SearchBar
         value={searchQuery}
-        onChangeText={setSearchQuery}
+        onChangeText={handleSearchQuery}
       />
       <StatefulContentWrapper
-        loading={isInitialLoad}
+        loading={isInitialLoading}
         error={initialLoadError}
-        onRefresh={loadInitialSearchArticles}
+        onRefresh={handleRefreshPage}
       >
         <FlatList
           data={articles}
           contentContainerStyle={{ flexGrow: 1 }}
           renderItem={renderSearchArticles}
           showsVerticalScrollIndicator={false}
-          onEndReached={!loadMoreError ? loadNextSearchArticles : () => {}}
+          onEndReached={!loadMoreError ? handleLoadNextPage : () => {}}
           onEndReachedThreshold={0.2}
           ListEmptyComponent={<EmptyPlaceHolder></EmptyPlaceHolder>}
           ListFooterComponent={renderFooter}
+          keyExtractor={(item) => item.id.toString()}
           ItemSeparatorComponent={() => <View style={styles.searchArticleSpacing} />}
           refreshControl={
             <RefreshControl
               refreshing={false}
-              onRefresh={loadInitialSearchArticles}
+              onRefresh={handleRefreshPage}
             />
           }
         />
       </StatefulContentWrapper>
-      <SharedSnackbar
-      ></SharedSnackbar>
     </View>
   );
 };
