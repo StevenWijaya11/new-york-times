@@ -10,7 +10,7 @@ export const getCurrentUserLanguage = () => {
 };
 
 export const localizedErrorMessage = (err: Failure): string => {
-  if (err.error.code === AxiosError.ERR_NETWORK || err.error.code === AxiosError.ECONNABORTED) {
+  if (err.errorCode === AxiosError.ERR_NETWORK || err.errorCode === AxiosError.ECONNABORTED) {
     return t('Errors.Ecconaborted');
   } else if (err.statusCode) {
     switch (err.statusCode) {
@@ -30,5 +30,5 @@ export const localizedErrorMessage = (err: Failure): string => {
   } else if (err instanceof SyntaxError) {
     return t('Errors.ParseError');
   }
-  return err.error.message ?? t('Errors.Unknown');
+  return err.errorMessage ?? t('Errors.Unknown');
 };

@@ -13,6 +13,7 @@ import { RootStackParamList } from 'src/types/rootStackParamList';
 import { Screens } from 'src/enums/screens';
 import { useNetworkStatus } from '@ui/hooks/sharedHooks/useNetworkStatus';
 import SearchBar from '@ui/components/SearchBar';
+import SharedSnackbar from '@ui/shared/Snackbar';
 
 const SearchArticleScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -76,6 +77,8 @@ const SearchArticleScreen = () => {
           }
         />
       </StatefulContentWrapper>
+      <SharedSnackbar
+      ></SharedSnackbar>
     </View>
   );
 };
