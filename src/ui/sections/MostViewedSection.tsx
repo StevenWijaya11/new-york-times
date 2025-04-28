@@ -1,17 +1,27 @@
+import { AppDispatch, RootState } from '@app/store';
 import { Article } from '@core/models/article';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MostViewedArticle from '@ui/components/MostViewedArticle';
-import { useMostViewedArticles } from '@ui/hooks/customHooks/useMostViewedArticles';
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
 import { t } from 'i18next';
+import { useEffect } from 'react';
 import { View, TouchableOpacity, Text, FlatList, StyleSheet, ListRenderItem } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { Screens } from 'src/enums/screens';
+import { fetchMostVieweds } from 'src/features/thunks/mostViewedThunk';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 
 const MostViewedSection = () => {
-  const { mostViewedArticles, isMostViewedLoading, mostViewedError, loadMostViewedArticles } = useMostViewedArticles();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchMostVieweds());
+  }, [dispatch]);
+
+  const { articles, loading, error } = useSelector((state: RootState) => state.mostViewed);
 
   const renderMostViewedArticle: ListRenderItem<Article> = ({ item }) => {
     return (
@@ -28,14 +38,14 @@ const MostViewedSection = () => {
     <View style={styles.mostViewedContainer}>
       <Text style={styles.sectionTitle}>{t('Home.MostViewed')}</Text>
       <StatefulContentWrapper
-        loading={isMostViewedLoading}
-        error={mostViewedError}
-        onRefresh={loadMostViewedArticles}
+        loading={loading}
+        error={error}
+        onRefresh={() => {}}
       >
         <FlatList
           style={styles.section}
           horizontal={true}
-          data={mostViewedArticles}
+          data={articles}
           showsHorizontalScrollIndicator={false}
           renderItem={renderMostViewedArticle}
           keyExtractor={(item) => item.id.toString()}
