@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -8,13 +8,27 @@ import { RootStackParamList } from 'src/types/rootStackParamList';
 import MostViewedSection from '@ui/sections/MostViewedSection';
 import InterestSection from '@ui/sections/InterestSection';
 import SearchBar from '@ui/components/SearchBar';
+import useInterestStore from 'src/stores/interestStore';
+import useMostViewedStore from 'src/stores/mostViewedStore';
 
 const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { selectedStory, fetchSelectedStoryArticles } = useInterestStore();
+  const { fetchMostViewedArticles } = useMostViewedStore();
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={() => {
+              fetchMostViewedArticles();
+              fetchSelectedStoryArticles(selectedStory);
+            }}
+          />
+        }
+      >
         <View>
           <TouchableOpacity onPress={() => navigation.navigate(Screens.SearchArticle)}>
             <SearchBar

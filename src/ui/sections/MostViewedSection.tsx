@@ -2,16 +2,21 @@ import { Article } from '@core/models/article';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MostViewedArticle from '@ui/components/MostViewedArticle';
-import { useMostViewedArticles } from '@ui/hooks/customHooks/useMostViewedArticles';
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
 import { t } from 'i18next';
+import { useEffect } from 'react';
 import { View, TouchableOpacity, Text, FlatList, StyleSheet, ListRenderItem } from 'react-native';
 import { Screens } from 'src/enums/screens';
+import useMostViewedStore from 'src/stores/mostViewedStore';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 
 const MostViewedSection = () => {
-  const { mostViewedArticles, isMostViewedLoading, mostViewedError, loadMostViewedArticles } = useMostViewedArticles();
+  const { mostViewedArticles, isMostViewedLoading, mostViewedError, fetchMostViewedArticles } = useMostViewedStore();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  useEffect(() => {
+    fetchMostViewedArticles();
+  }, [fetchMostViewedArticles]);
 
   const renderMostViewedArticle: ListRenderItem<Article> = ({ item }) => {
     return (
@@ -30,7 +35,7 @@ const MostViewedSection = () => {
       <StatefulContentWrapper
         loading={isMostViewedLoading}
         error={mostViewedError}
-        onRefresh={loadMostViewedArticles}
+        onRefresh={fetchMostViewedArticles}
       >
         <FlatList
           style={styles.section}
