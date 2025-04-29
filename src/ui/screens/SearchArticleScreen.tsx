@@ -1,33 +1,44 @@
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, FlatList, ListRenderItem, RefreshControl, TouchableOpacity } from 'react-native';
 
 import { Article } from '@core/models/article';
 import ArticlePreview from '@ui/components/ArticlePreview';
 import PaginationFooter from '@ui/components/PaginationFooter';
-import { useSearchArticle } from '../hooks/customHooks/useSearchArticle';
 import EmptyPlaceHolder from '@ui/components/EmptyPlaceholder';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 import { Screens } from 'src/enums/screens';
-import { useNetworkStatus } from '@ui/hooks/sharedHooks/useNetworkStatus';
 import SearchBar from '@ui/components/SearchBar';
+import useSearchStore from 'src/stores/searchStore';
+import { useDebounce } from '@ui/hooks/sharedHooks/useDebounce';
 
 const SearchArticleScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const isConnected = useNetworkStatus();
   const {
     articles,
-    isInitialLoad,
+    isInitialLoading,
     isLoadingMore,
     initialLoadError,
     loadMoreError,
-    loadInitialSearchArticles,
-    loadNextSearchArticles,
+    fetchInitialSearchArticles,
+    fetchNextSearchArticles,
     searchQuery,
     setSearchQuery,
-  } = useSearchArticle();
+    resetState,
+  } = useSearchStore();
+  const debouncedSearchQuery = useDebounce(searchQuery, 500);
+
+  useEffect(() => {
+    fetchInitialSearchArticles();
+  }, [fetchInitialSearchArticles, debouncedSearchQuery]);
+
+  useEffect(() => {
+    return () => {
+      resetState();
+    };
+  }, []);
 
   const renderSearchArticles: ListRenderItem<Article> = ({ item }) => {
     return (
@@ -42,7 +53,7 @@ const SearchArticleScreen = () => {
       <PaginationFooter
         isLoading={isLoadingMore}
         error={loadMoreError}
-        onRefresh={loadNextSearchArticles}
+        onRefresh={fetchNextSearchArticles}
       />
     );
   };
@@ -54,16 +65,16 @@ const SearchArticleScreen = () => {
         onChangeText={setSearchQuery}
       />
       <StatefulContentWrapper
-        loading={isInitialLoad}
+        loading={isInitialLoading}
         error={initialLoadError}
-        onRefresh={loadInitialSearchArticles}
+        onRefresh={fetchInitialSearchArticles}
       >
         <FlatList
           data={articles}
           contentContainerStyle={{ flexGrow: 1 }}
           renderItem={renderSearchArticles}
           showsVerticalScrollIndicator={false}
-          onEndReached={!loadMoreError ? loadNextSearchArticles : () => {}}
+          onEndReached={!loadMoreError ? fetchNextSearchArticles : () => {}}
           onEndReachedThreshold={0.2}
           ListEmptyComponent={<EmptyPlaceHolder></EmptyPlaceHolder>}
           ListFooterComponent={renderFooter}
@@ -71,7 +82,7 @@ const SearchArticleScreen = () => {
           refreshControl={
             <RefreshControl
               refreshing={false}
-              onRefresh={loadInitialSearchArticles}
+              onRefresh={fetchInitialSearchArticles}
             />
           }
         />
