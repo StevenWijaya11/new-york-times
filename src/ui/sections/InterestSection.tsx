@@ -3,13 +3,14 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ArticlePreview from '@ui/components/ArticlePreview';
 import TopStorySection from '@ui/components/TopStorySection';
-import { useInterestArticles } from '@ui/hooks/customHooks/useInterestArticles';
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
 import { t } from 'i18next';
+import { useEffect } from 'react';
 import { FlatList, ListRenderItem, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { Screens } from 'src/enums/screens';
 import { Stories } from 'src/enums/stories';
+import useInterestStore from 'src/stores/interestStore';
 import { RootStackParamList } from 'src/types/rootStackParamList';
 
 const InterestSection = () => {
@@ -20,9 +21,13 @@ const InterestSection = () => {
     interestError,
     selectedStory,
     setSelectedStory,
-    loadSelectedStory,
-  } = useInterestArticles();
+    fetchSelectedStoryArticles,
+  } = useInterestStore();
   const storiesList: string[] = Object.values(Stories);
+
+  useEffect(() => {
+    fetchSelectedStoryArticles(selectedStory);
+  }, [fetchSelectedStoryArticles, selectedStory]);
 
   const renderStorySection: ListRenderItem<string> = ({ item }) => {
     return (
@@ -57,7 +62,7 @@ const InterestSection = () => {
       <StatefulContentWrapper
         loading={isInterestLoading}
         error={interestError}
-        onRefresh={() => loadSelectedStory(selectedStory)}
+        onRefresh={() => fetchSelectedStoryArticles(selectedStory)}
       >
         <FlatList
           style={styles.section}
