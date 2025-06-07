@@ -1,51 +1,48 @@
-import { useNetworkStatus } from '@ui/hooks/sharedHooks/useNetworkStatus';
 import { t } from 'i18next';
-import { useEffect, useState } from 'react';
-import { Animated, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { Animated, StyleSheet, Text, View } from 'react-native';
+import { useNetworkStore } from 'src/stores/networkStore';
 
 const SharedSnackbar = () => {
-  const isConnected = useNetworkStatus();
-  const [isVisible, setIsVisible] = useState<boolean>(true);
+  const isConnected = useNetworkStore((state) => state.isConnected);
+
+  const prevIsConnected = useRef<boolean | null>(null);
   const [message, setMessage] = useState<string>('');
   const [animation] = useState(new Animated.Value(0));
 
-  const handleDismiss = () => {
-    setIsVisible(false);
-  };
-
   useEffect(() => {
-    setMessage(isConnected ? t('Shared.Online') : t('Shared.NoInternet'));
-    setIsVisible(true);
-    const timer = setTimeout(() => {
-      setIsVisible(false);
-    }, 3000);
-
-    return () => clearTimeout(timer);
+    if (prevIsConnected.current !== null && prevIsConnected.current !== isConnected) {
+      setMessage(isConnected ? t('Shared.Online') : t('Shared.NoInternet'));
+    }
+    prevIsConnected.current = isConnected;
   }, [isConnected]);
 
   useEffect(() => {
-    if (isVisible) {
+    if (message) {
       Animated.timing(animation, {
         toValue: 1,
         duration: 300,
         useNativeDriver: true,
-      }).start();
-    } else {
-      Animated.timing(animation, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
+      }).start(() => {
+        const timer = setTimeout(() => {
+          Animated.timing(animation, {
+            toValue: 0,
+            duration: 300,
+            useNativeDriver: true,
+          }).start(() => {
+            setMessage('');
+          });
+        }, 3000);
+
+        return () => clearTimeout(timer);
+      });
     }
-  }, [isVisible]);
+  }, [message]);
 
   return (
     <Animated.View style={[styles.snackBarContainer, { opacity: animation }]}>
       <View style={styles.snackBar}>
         <Text style={styles.snackBarText}>{message}</Text>
-        <TouchableOpacity onPress={handleDismiss}>
-          <Text style={styles.dismissText}>Dismiss</Text>
-        </TouchableOpacity>
       </View>
     </Animated.View>
   );
@@ -67,15 +64,10 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
   snackBarText: {
     color: '#fff',
     fontSize: 16,
-  },
-  dismissText: {
-    color: '#ff5252',
-    fontWeight: 'bold',
   },
 });
 

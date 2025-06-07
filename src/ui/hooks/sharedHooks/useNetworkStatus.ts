@@ -1,18 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import NetInfo from '@react-native-community/netinfo';
+import { useNetworkStore } from 'src/stores/networkStore';
 
 export const useNetworkStatus = () => {
-  const [isConnected, setIsConnected] = useState<boolean | null>(true);
+  const setIsConnected = useNetworkStore((state) => state.setIsConnected);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
-      if (state.isConnected !== isConnected) {
-        setIsConnected(state.isConnected);
-      }
+      setIsConnected(!!state.isConnected);
     });
 
-    return () => unsubscribe();
-  }, [isConnected]);
+    NetInfo.fetch().then((state) => setIsConnected(!!state.isConnected));
 
-  return isConnected;
+    return () => unsubscribe();
+  }, [setIsConnected]);
 };

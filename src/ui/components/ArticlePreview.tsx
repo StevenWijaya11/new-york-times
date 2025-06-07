@@ -1,5 +1,6 @@
 import { Article } from '@core/models/article';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import { NetworkStatusIcon } from './NetworkStatusIcon';
 
 interface ArticlePreviewProps {
   item: Article;
@@ -28,8 +29,13 @@ const ArticlePreview: React.FC<ArticlePreviewProps> = ({ item }) => {
           {abstract}
         </Text>
         <View style={styles.information}>
-          <Text style={styles.date}>{publishedDate}</Text>
-          <Text>{author}</Text>
+          <View style={styles.dateContainer}>
+            <Text style={styles.date}>{publishedDate}</Text>
+            <Text style={styles.author} numberOfLines={2}>{author}</Text>
+          </View>
+          <View style={styles.iconWrapper}>
+            <NetworkStatusIcon />
+          </View>
         </View>
       </View>
     </View>
@@ -48,9 +54,10 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'column',
-    padding: 10,
+    paddingHorizontal: 10,
     flexShrink: 1,
     justifyContent: 'space-between',
+    gap: 5,
   },
   title: {
     fontSize: 20,
@@ -58,11 +65,23 @@ const styles = StyleSheet.create({
   },
   date: {
     marginRight: 5,
+    fontSize: 14,
+  },
+  author: {
+    fontSize: 14,
   },
   information: {
     flexDirection: 'row',
+  },
+  dateContainer: {
+    width: '90%',
+    flexDirection: 'row',
     flexWrap: 'wrap',
-    flexShrink: 1,
+  },
+  iconWrapper: {
+    width: '10%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
