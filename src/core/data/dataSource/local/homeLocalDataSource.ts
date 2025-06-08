@@ -9,15 +9,15 @@ export const homeLocalDataSource = (db: SQLiteDatabase) => {
       await db.transaction(async (tx) => {
         for (const article of homeArticles) {
           const { id, title, abstract, imageUrl, author, caption, credit, publishedDate } = article;
-          await tx.executeSql(
-            `INSERT INTO ${MOST_VIEWED} (id, title, abstract, imageUrl, author, caption, credit, publishedDate, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+          tx.executeSql(
+            `INSERT INTO ${MOST_VIEWED} (id, title, abstract, imageUrl, author, caption, credit, published_date, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
              ON CONFLICT(id) DO UPDATE SET
               title = excluded.title,
               abstract = excluded.abstract,
               author = excluded.author,
               caption = excluded.caption,
               credit = excluded.credit,
-              publishedDate = excluded.publishedDate,
+              published_date = excluded.published_date,
               category = excluded.category`,
             [id, title, abstract, imageUrl, author, caption, credit, publishedDate, category],
           );
