@@ -1,10 +1,11 @@
-import { ServiceContainer } from '@core/data/service-container/serviceContainer';
+import { Service } from '@core/data/service-container/serviceContainer';
 import { Article } from '@core/models/article';
 import { isSuccess } from '@utils/isSuccess';
 import { Stories } from 'src/enums/stories';
 
 import { Failure } from 'src/types/result';
 import { create } from 'zustand';
+import { useNetworkStore } from './networkStore';
 
 interface InterestState {
   selectedStoryArticles: Article[];
@@ -29,7 +30,10 @@ const useInterestStore = create<InterestState & InterestAction>()((set) => ({
   ...initialState,
   fetchSelectedStoryArticles: async (selectedStory) => {
     set({ selectedStoryArticles: [], isInterestLoading: true, interestError: null });
-    const result = await ServiceContainer.homeRepo.fetchSelectedStoryArticles(selectedStory);
+
+    const isConnected = useNetworkStore.getState().isConnected;
+    const result = await Service().homeRepo.fetchSelectedStoryArticles(selectedStory, isConnected);
+
     if (isSuccess(result)) {
       set({ selectedStoryArticles: result.data, isInterestLoading: false });
     } else {

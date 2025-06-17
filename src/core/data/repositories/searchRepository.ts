@@ -1,4 +1,4 @@
-import { searchDataSource } from '@core/data/remote/searchDataSource';
+import { searchDataSource } from '@core/data/dataSource/remote/searchDataSource';
 import { Article } from '@core/models/article';
 import { mapSearchArticles } from '@core/data/mappers/mapSearchArticles';
 import { mapError } from '@core/data/mappers/mapError';

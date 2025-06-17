@@ -7,7 +7,7 @@ export const mapMostViewedArticle = (item: any): Article => {
     title: item.title,
     abstract: item.abstract,
     author: item.byline,
-    imageUrl: item.media?.[0]?.['media-metadata']?.[2]?.url??item.media?.[0]?.['media-metadata']?.[0]?.url,
+    imageUrl: item.media?.[0]?.['media-metadata']?.[2]?.url ?? item.media?.[0]?.['media-metadata']?.[0]?.url,
     caption: item.media?.[0]?.caption ?? '',
     credit: item.media?.[0]?.copyright ?? '',
     publishedDate: formatDisplayDate(item.published_date),
@@ -15,5 +15,5 @@ export const mapMostViewedArticle = (item: any): Article => {
 };
 
 export const mapMostViewedArticles = (items: any) => {
-    return items.map(mapMostViewedArticle)
-}
+  return items.map(mapMostViewedArticle);
+};

@@ -10,6 +10,7 @@ import InterestSection from '@ui/sections/InterestSection';
 import SearchBar from '@ui/components/SearchBar';
 import useInterestStore from 'src/stores/interestStore';
 import useMostViewedStore from 'src/stores/mostViewedStore';
+import SharedSnackbar from '@ui/shared/Snackbar';
 
 const HomeScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -40,6 +41,7 @@ const HomeScreen = () => {
           <InterestSection />
         </View>
       </ScrollView>
+      <SharedSnackbar />
     </View>
   );
 };
