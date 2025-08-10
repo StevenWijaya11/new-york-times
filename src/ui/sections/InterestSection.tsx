@@ -4,8 +4,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import ArticlePreview from '@ui/components/ArticlePreview';
 import TopStorySection from '@ui/components/TopStorySection';
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
-import { t } from 'i18next';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FlatList, ListRenderItem, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Text } from 'react-native-paper';
 import { Screens } from 'src/enums/screens';
@@ -22,8 +22,9 @@ const InterestSection = () => {
     selectedStory,
     setSelectedStory,
     fetchSelectedStoryArticles,
-  } = useInterestStore();
+} = useInterestStore();
   const storiesList: string[] = Object.values(Stories);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchSelectedStoryArticles(selectedStory);

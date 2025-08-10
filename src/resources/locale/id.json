@@ -51,10 +51,19 @@
     "Title": "Tidak Ditemukan Hasil",
     "Description": "Kami tidak dapat menemukan item yang cocok dengan pencarian Anda"
   },
-  
+
   "Shared": {
     "Retry": "Coba Lagi",
     "NoInternet": "Anda sedang offline",
     "Online": "Anda kembali online"
-  }
+  },
+
+  "Languages": "Bahasa",
+  "English": "Inggris",
+  "Indonesia": "Indonesia",
+  "System": "Sistem",
+
+  "DarkMode": "Dark Mode",
+  "LightMode": "Light Mode",
+  "system": "System"
 }

@@ -1,8 +1,9 @@
-import { MOST_VIEWED, VERSION } from '@core/constant/constant';
-import { enablePromise, openDatabase, SQLiteDatabase } from 'react-native-sqlite-storage';
+import { MOST_VIEWED, USER_PREFERENCE, VERSION } from '@core/constant/constant';
+import { DEBUG, enablePromise, openDatabase, SQLiteDatabase } from 'react-native-sqlite-storage';
 import { migrations } from './migrations';
 
 enablePromise(true);
+DEBUG(true);
 
 let db: SQLiteDatabase | null = null;
 
@@ -61,10 +62,25 @@ export const initializeTables = async (db: SQLiteDatabase) => {
       category TEXT NOT NULL
     )`;
 
+    const userPreference = `CREATE TABLE IF NOT EXISTS ${USER_PREFERENCE} (
+      id INTEGER PRIMARY KEY,
+      theme TEXT,
+      lang_tag TEXT
+    ) `;
+
+    const insertDefaultUserPreferences = `
+      INSERT OR IGNORE INTO ${USER_PREFERENCE} (id, theme, lang_tag)
+      VALUES (1, 'System', 'System');
+    `;
+
     await db.executeSql(versionTable);
     await db.executeSql(initialVersion);
     await db.executeSql(homeTable);
+    await db.executeSql(userPreference);
+    await db.executeSql(insertDefaultUserPreferences);
+    console.log('sss')
   } catch (error) {
+    console.log('errorr', error)
     throw new Error(`Failed to initialize the table.`);
   }
 };

@@ -9,6 +9,10 @@ export const getCurrentUserLanguage = () => {
   return Array.isArray(locales) && locales.length > 0 ? locales[0].languageTag : Languages.English;
 };
 
+export const getSelectedLanguage = (language: string): string => {
+  return language === 'system' ? getCurrentUserLanguage() : language;
+};
+
 export const localizedErrorMessage = (err: Failure): string => {
   if (err.error.code === AxiosError.ERR_NETWORK || err.error.code === AxiosError.ECONNABORTED) {
     return t('Errors.Ecconaborted');

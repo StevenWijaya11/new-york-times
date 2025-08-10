@@ -1,7 +1,7 @@
 {
   "Home": {
     "MostViewed": "Most Viewed",
-    "Interests" : "Interests",
+    "Interests": "Interests",
     "SearchArticle": "Search article..."
   },
 
@@ -48,14 +48,22 @@
   },
 
   "EmptyPlaceholder": {
-    "Title": "No Result Found", 
+    "Title": "No Result Found",
     "Description": "We cant find any item macthing with your search"
   },
 
-  "Shared" : {
+  "Shared": {
     "Retry": "Retry",
-    "NoInternet": "You are offline", 
+    "NoInternet": "You are offline",
     "Online": "You are back online"
-  }
-  
+  },
+
+  "Languages": "Languages",
+  "English": "EngLish",
+  "Indonesia": "Indonesia",
+  "System": "System",
+
+  "DarkMode": "Dark Mode",
+  "LightMode": "Light Mode",
+  "system": "System"
 }
