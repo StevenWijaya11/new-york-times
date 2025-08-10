@@ -3,8 +3,8 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import MostViewedArticle from '@ui/components/MostViewedArticle';
 import { StatefulContentWrapper } from '@ui/shared/StatefulContentWrapper';
-import { t } from 'i18next';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View, TouchableOpacity, Text, FlatList, StyleSheet, ListRenderItem } from 'react-native';
 import { Screens } from 'src/enums/screens';
 import useMostViewedStore from 'src/stores/mostViewedStore';
@@ -13,9 +13,10 @@ import { RootStackParamList } from 'src/types/rootStackParamList';
 const MostViewedSection = () => {
   const { mostViewedArticles, isMostViewedLoading, mostViewedError, fetchMostViewedArticles } = useMostViewedStore();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    fetchMostViewedArticles();
+  fetchMostViewedArticles();
   }, [fetchMostViewedArticles]);
 
   const renderMostViewedArticle: ListRenderItem<Article> = ({ item }) => {
@@ -28,6 +29,7 @@ const MostViewedSection = () => {
       </TouchableOpacity>
     );
   };
+
 
   return (
     <View style={styles.mostViewedContainer}>

@@ -7,16 +7,20 @@ import { homeRepository } from '../repositories/homeRepository';
 import { searchRepository } from '../repositories/searchRepository';
 import axiosInstance from './axiosInstance';
 import { AxiosInstance } from 'axios';
+import { userPreferenceRepository } from '../repositories/userPreferenceRepository';
+import { userPreferenceDataSource } from '../dataSource/local/userPreferenceDataSource';
 
 export class ServiceContainer {
   private static instance: ServiceContainer | null = null;
- 
+
   public readonly homeRepo: ReturnType<typeof homeRepository>;
   public readonly searchRepo: ReturnType<typeof searchRepository>;
+  public readonly userPreferenceRepo: ReturnType<typeof userPreferenceRepository>;
 
   private constructor(private db: SQLiteDatabase, private axios: AxiosInstance) {
     this.homeRepo = this.createHomeRepo();
     this.searchRepo = this.createSearchRepo();
+    this.userPreferenceRepo = this.createUserPreferenceRepo();
   }
 
   private createHomeRepo(): ReturnType<typeof homeRepository> {
@@ -28,6 +32,11 @@ export class ServiceContainer {
   private createSearchRepo(): ReturnType<typeof searchRepository> {
     const searchRemote = searchDataSource(this.axios);
     return searchRepository(searchRemote);
+  }
+
+  private createUserPreferenceRepo(): ReturnType<typeof userPreferenceRepository> {
+    const userPreferenceLocal = userPreferenceDataSource(this.db);
+    return userPreferenceRepository(userPreferenceLocal);
   }
 
   public static async init(): Promise<void> {
@@ -46,4 +55,4 @@ export class ServiceContainer {
 
 export const Service = (): ServiceContainer => {
   return ServiceContainer.getInstance();
-}
+};

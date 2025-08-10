@@ -1,4 +1,4 @@
-import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
 import { Searchbar } from 'react-native-paper';
 
@@ -9,6 +9,7 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ value, onChangeText, isEditable = true }) => {
+  const { t } = useTranslation();
   return (
     <Searchbar
       style={styles.searchBar}
@@ -31,9 +32,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     backgroundColor: '#fff',
-    marginBottom: 20
+    marginBottom: 20,
   },
 });
 
 export default SearchBar;
-
