@@ -1,4 +1,3 @@
-
 import { MOST_VIEWED } from '@core/constant/constant';
 import { Article } from '@core/models/article';
 import { SQLiteDatabase } from 'react-native-sqlite-storage';

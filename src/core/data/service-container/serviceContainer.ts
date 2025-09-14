@@ -9,6 +9,7 @@ import axiosInstance from './axiosInstance';
 import { AxiosInstance } from 'axios';
 import { userPreferenceRepository } from '../repositories/userPreferenceRepository';
 import { userPreferenceDataSource } from '../dataSource/local/userPreferenceDataSource';
+import { searchLocalDataSource } from '../dataSource/local/searchLocalDataSource';
 
 export class ServiceContainer {
   private static instance: ServiceContainer | null = null;
@@ -31,7 +32,8 @@ export class ServiceContainer {
 
   private createSearchRepo(): ReturnType<typeof searchRepository> {
     const searchRemote = searchDataSource(this.axios);
-    return searchRepository(searchRemote);
+    const searchLocal = searchLocalDataSource(this.db)
+    return searchRepository(searchRemote, searchLocal);
   }
 
   private createUserPreferenceRepo(): ReturnType<typeof userPreferenceRepository> {
