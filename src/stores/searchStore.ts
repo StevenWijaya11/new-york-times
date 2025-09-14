@@ -1,10 +1,11 @@
 import { INITIAL_PAGE } from '@core/constant/constant';
-import { ServiceContainer } from '@core/data/service-container/serviceContainer';
+import { Service } from '@core/data/service-container/serviceContainer';
 import { Article } from '@core/models/article';
 import { isSuccess } from '@utils/isSuccess';
 
 import { Failure } from 'src/types/result';
 import { create } from 'zustand';
+import { useNetworkStore } from './networkStore';
 
 interface SearchState {
   articles: Article[];
@@ -45,8 +46,8 @@ const useSearchStore = create<SearchState & SearchAction>()((set, get) => ({
       searchQuery: searchQuery,
     });
 
-    const result = await ServiceContainer.searchRepo.fetchSearchArticles(INITIAL_PAGE, searchQuery);
-
+    const isConnected = useNetworkStore.getState().isConnected;
+    const result = await Service().searchRepo.fetchSearchArticles(INITIAL_PAGE, searchQuery, isConnected);
     if (isSuccess(result)) {
       set((state) => ({
         articles: result.data,
@@ -64,10 +65,16 @@ const useSearchStore = create<SearchState & SearchAction>()((set, get) => ({
 
     set({ isLoadingMore: true, initialLoadError: null, loadMoreError: null });
 
-    const result = await ServiceContainer.searchRepo.fetchSearchArticles(page, searchQuery);
+    const isConnected = useNetworkStore.getState().isConnected;
+    const result = await Service().searchRepo.fetchSearchArticles(page, searchQuery, isConnected);
 
     if (isSuccess(result)) {
-      set((state) => ({ articles: [...state.articles, ...result.data], page: state.page + 1, isLoadingMore: false }));
+      set((state) => ({
+        articles: [...state.articles, ...result.data],
+        page: state.page + 1,
+        isLoadingMore: false,
+        hasEnoughData: result.data.length >= 10,
+      }));
     } else {
       set({ loadMoreError: result, isLoadingMore: false });
     }

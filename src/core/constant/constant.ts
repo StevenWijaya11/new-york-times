@@ -4,6 +4,7 @@ import { Languages } from 'src/enums/languages';
 export const INITIAL_PAGE = 0;
 
 export const MOST_VIEWED = 'most_viewed';
+export const SEARCH_ARTICLE = 'search_article';
 export const VERSION = 'version';
 export const USER_PREFERENCE = 'user_preference';
 
