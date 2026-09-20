@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, RefreshControl } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -42,6 +42,7 @@ const HomeScreen = () => {
           </TouchableOpacity>
           <MostViewedSection />
           <InterestSection />
+          <Text style={styles.attribution}>Data provided by The New York Times.</Text>
         </View>
       </ScrollView>
       <SharedSnackbar></SharedSnackbar>
@@ -53,6 +54,12 @@ const styles = StyleSheet.create({
   container: {
     padding: 10,
     flex: 1,
+  },
+  attribution: {
+    marginVertical: 16,
+    color: '#6B7280',
+    fontSize: 12,
+    textAlign: 'center',
   },
 });
 
