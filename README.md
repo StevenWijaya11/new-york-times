@@ -1,4 +1,25 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# News Reader App
+
+An independent learning project built to explore mobile API integration with React Native. The app uses The New York Times APIs to let users browse popular stories, explore topics, search for articles, and view article details.
+
+> Independent, non-commercial learning project using The New York Times API.
+
+## Features
+
+- Browse most-viewed stories and articles by topic
+- Search for articles with debounced input and pagination
+- Refresh content and handle loading, empty, offline, and error states
+- View article headlines, images, publication details, and summaries
+- Display localized interface text based on the device language
+
+## Tech stack
+
+- React Native
+- TypeScript
+- Axios
+- React Navigation
+- i18next
+- Jest and React Native Testing Library
 
 # Getting Started
 
